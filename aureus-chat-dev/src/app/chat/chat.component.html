@@ -1,0 +1,70 @@
+<main class="flex-1 px-8 flex flex-col h-screen relative bg-darkbg text-white">
+
+  <!-- Botão de perfil -->
+  <button (click)="toggleMenu()">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+         class="size-10 absolute right-3 top-3">
+      <path fill-rule="evenodd" d="M18.685 19.097A9.723 9.723 0 0 0 21.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 0 0 3.065 7.097A9.716 9.716 0 0 0 12 21.75a9.716 9.716 0 0 0 6.685-2.653Zm-12.54-1.285A7.486 7.486 0 0 1 12 15a7.486 7.486 0 0 1 5.855 2.812A8.224 8.224 0 0 1 12 20.25a8.224 8.224 0 0 1-5.855-2.438ZM15.75 9a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" clip-rule="evenodd" />
+    </svg>
+  </button>
+
+  <!-- Menu dropdown -->
+  <div *ngIf="showMenu" class="absolute top-16 right-4 bg-lightbg text-white p-4 rounded-lg shadow-lg z-20">
+    <div class="mb-2"><strong>{{ username() }}</strong></div>
+    <button (click)="logout()" class="bg-red-500 hover:bg-red-600 px-3 py-1 rounded">Logout</button>
+  </div>
+
+  <!-- Container central -->
+  <div *ngIf="!isChatLoading" class="flex flex-col w-[60%] mx-auto flex-1 mt-14 overflow-hidden">
+
+  <!-- Logotipo ao centro se não há mensagens -->
+    <div *ngIf="messages.length === 0 && !inProgressAiText" class="flex-1 flex flex-col items-center justify-center text-center">
+      <img src="../assets/images/logo.svg" class="w-[25vh] mb-4" />
+      <h2 class="text-7xl font-normal">
+        <span class="text-white">Aureus </span>
+        <span class="text-blue-400">Chat</span>
+      </h2>
+    </div>
+
+  <!-- Mensagens -->
+    <div *ngIf="messages.length > 0 || inProgressAiText"
+        #scrollContainer
+        class="flex-1 h-[90%] max-w-[1600px] overflow-y-auto space-y-2 pr-1 scroll-hidden">
+
+      <div *ngFor="let msg of messages; let i = index; trackBy: trackByIndex"
+          class="animate-fade-in p-4 rounded-lg whitespace-pre-wrap w-fit max-w-full"
+          [ngClass]="[
+              msg.sender === 'user' ? 'bg-lightbg ml-auto text-right' : 'bg-darkbg-800 mr-auto text-left'
+          ]">
+        {{ msg.sender === 'ai' ? cleanResponse(msg.text) : msg.text }}
+      </div>
+
+      <div *ngIf="inProgressAiText"
+          class="animate-fade-in p-4 rounded-lg bg-darkbg-800 whitespace-pre-wrap w-fit max-w-full mr-auto text-left">
+        {{ cleanResponse(inProgressAiText) }}
+      </div>
+    </div>
+
+    <!-- Indicador de loading -->
+    <div *ngIf="isLoading" class="text-blue-400 my-2">Thinking...</div>
+
+    <!-- Input de mensagem com textarea -->
+    <div class="relative mt-2 w-full mb-6">
+      <textarea 
+        [(ngModel)]="userInput"
+        (keydown)="onKeyDown($event)"
+        placeholder="Ask anything"
+        rows="1"
+        [disabled]="isLoading"
+        class="w-full p-4 pr-12 rounded-lg bg-lightbg text-white placeholder-gray-400 focus:outline-none resize-none min-h-[56px] max-h-96 disabled:opacity-50  scroll-hidden">
+      </textarea>
+      <button (click)="sendPrompt()"
+              [disabled]="isLoading || !userInput.trim()"
+              class="absolute right-4 top-4 text-white disabled:opacity-50 disabled:cursor-not-allowed hover:text-blue-400 transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
+        </svg>
+      </button>
+    </div>
+  </div>
+</main>

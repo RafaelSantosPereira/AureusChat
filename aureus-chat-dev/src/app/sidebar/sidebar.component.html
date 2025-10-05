@@ -1,0 +1,40 @@
+<aside class="h-full w-auto bg-darkerbg p-4 flex flex-col">
+  <div class="flex space-x-4 mb-4 h-12">
+    <a href="" class="w-[3rem] h-[3rem]">
+      <img src="../assets/images/logo.svg" class="w-full h-full" />
+    </a>
+    <input
+      type="text"
+      placeholder="Search Chats"
+      [(ngModel)]="searchTerm"
+      (input)="onSearchChange()"
+      class="w-full pl-4 rounded-lg bg-darkerbg text-white placeholder-gray-400 border-2 border-lightbg focus:outline-none focus:ring-0"
+    />
+  </div>
+
+  <button
+    (click)="createNewChat()"
+    class="mb-4 h-12 bg-darkerbg hover:bg-gray-700 text-white px-4 py-2 rounded-md border-2 border-lightbg transition-colors duration-250 ease-in-out"
+  >
+    + New Chat
+  </button>
+
+  <div class="flex-1 overflow-y-auto">
+    <h2 class="text-sm text-gray-400 uppercase mb-2">Recents</h2>
+    <ul class="space-y-2">
+      <li
+        *ngFor="let chat of chats$ | async"
+        (click)="openChat(chat.id)"
+        [class.bg-gray-700]="chat.id === selectedChatId"
+        class="hover:bg-gray-700 px-3 py-2 rounded-md cursor-pointer transition-colors duration-250 ease-in-out overflow-hidden whitespace-nowrap text-ellipsis"
+      >
+        {{ chat.title }}
+      </li>
+    </ul>
+    
+    <!-- Mensagem quando não há resultados -->
+    <div *ngIf="(chats$ | async)?.length === 0 && searchTerm.trim()" class="text-gray-400 text-center mt-4">
+      Nenhum chat encontrado
+    </div>
+  </div>
+</aside>

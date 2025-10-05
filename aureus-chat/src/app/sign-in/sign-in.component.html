@@ -1,0 +1,54 @@
+<div class="bg-gray-900 min-h-screen flex items-center justify-center">
+    <div class="flex overflow-hidden mx-auto w-full h-full md:h-screen">
+      <div class="bg-darkerbg md:w-1/2 p-12 flex items-center justify-center">
+        <div class="text-white text-center">
+          <div class="flex items-center justify-center">
+            <img src="../assets/images/logo.svg" alt="Aureus Chat Logo" class="w-40 h-40">
+          </div>
+          <h2 class="text-[4vw] font-semibold ">
+            Aureus <span class="text-blue-400">Chat</span>
+          </h2>
+          <p class="text-gray-400 text-base">Connect and collaborate effortlessly.</p>
+        </div>
+      </div>
+      <div class="bg-darkbg md:w-1/2 p-8 md:p-12 flex flex-col justify-center items-center">
+        <div class="max-w-md w-full">
+          <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <h2 class="text-white text-[3em] font-semibold mb-8 text-center">Sign
+               <span class="text-blue-400">in</span>
+            </h2>
+            
+            
+            <div class="mb-6">
+              <input type="email" class="h-[4em] bg-gray-700 text-white rounded-md py-3 px-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Email" formControlName="email">
+              <div *ngIf="form.get('email')?.invalid && form.get('email')?.touched" class="text-red-500 text-sm mt-1">
+                <span *ngIf="form.get('email')?.errors?.['required']">Email is required.</span>
+                <span *ngIf="form.get('email')?.errors?.['email']">Please enter a valid email address.</span>
+              </div>
+            </div>
+            <div class="mb-8">
+              <input type="password" class="h-[4em] bg-gray-700 text-white rounded-md py-3 px-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Password" formControlName="password">
+              <div *ngIf="form.get('password')?.invalid && form.get('password')?.touched" class="text-red-500 text-sm mt-1">
+                <span *ngIf="form.get('password')?.errors?.['required']">Password is required.</span>
+              </div>
+              <div class="min-h-[1rem] text-red-500 text-sm mt-1">
+                <span>{{ errorDisplay }}</span>
+              </div>
+            </div>
+            
+  
+            <button class="h-[4em] bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <span class="text-[1.4rem] font-semibold">Sign in</span>
+            </button>
+            <div class="mt-6 text-center text-gray-400">
+              Don't have an account?   <a routerLink="/sign-up" class="text-blue-500 hover:underline">Create an account</a>
+            </div>
+            <div class="text-center text-gray-400 mt-2">
+              <a href="#" class="text-blue-500 hover:underline">Forgot password?</a>
+            </div>
+          </form>
+        
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,33 @@
+[v1.6.0] – 2025-05-30  
+Efeito visual de streaming, melhorias gerais de otimização e design e transiçoes.  
+
+[v1.5.0] – 2025-05-24  
+Adicionado suporte a streaming .
+
+[v1.4.0] – 2025-05-19  
+Guardado histórico de mensagens e chats no Firebase.
+
+[v1.3.1] – 2025-05-18  
+Melhorias de design.
+
+[v1.3.0] – 2025-05-15  
+Integração com o LM Studio como backend de IA.
+
+[v1.2.0] – 2025-05-09  
+Finalização da autenticação e IA inicial.
+
+[v1.1.0] – 2025-05-02  
+Implementada criação de contas com Firebase Auth.
+
+[v1.0.2] – 2025-04-27  
+Instalação do Firebase, update do Angular e páginas de login/registo.
+
+[v1.0.1] – 2025-04-23 a 2025-04-26  
+Melhorias visuais e ajustes de design.
+
+[v1.0.0] – 2025-04-21  
+Configuração inicial do projeto.
+
+[v0.1.0] – 2025-04-04  
+Criação do ficheiro changelog.txt.
+

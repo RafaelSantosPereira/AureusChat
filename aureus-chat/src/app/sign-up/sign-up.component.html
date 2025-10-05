@@ -1,0 +1,75 @@
+<div class="bg-gray-900 min-h-screen flex items-center justify-center">
+  <div class="flex overflow-hidden mx-auto w-full h-full md:h-screen">
+    <div class="bg-darkerbg md:w-1/2 p-12 flex items-center justify-center">
+      <div class="text-white text-center">
+        <div class="flex items-center justify-center">
+          <img src="../assets/images/logo.svg" alt="Aureus Chat Logo" class="w-[8vw]">
+        </div>
+        <h2 class="text-[4vw] font-semibold">
+          Aureus <span class="text-blue-400">Chat</span>
+        </h2>
+        <p class="text-gray-400 text-base">Connect and collaborate effortlessly.</p>
+      </div>
+    </div>
+    <div class="bg-darkbg md:w-1/2 p-8 md:p-12 flex flex-col justify-center items-center">
+      <div class="max-w-md w-full">
+        <h2 class="text-white text-[3em] font-semibold mb-6 text-center">Sign
+          <span class="text-blue-400">up</span>
+        </h2>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          
+
+          
+
+          <!-- Name -->
+          <div class="mb-3">
+            <input type="text" placeholder="Name" formControlName="username"
+              class="h-[4em] bg-gray-700 text-white rounded-md py-3 px-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <div class="min-h-[1rem] text-red-500 text-sm mt-1"></div>
+          </div>
+
+          <!-- Email -->
+          <div class="mb-3">
+            <input type="email" placeholder="Email" formControlName="email"
+              class="h-[4em] bg-gray-700 text-white rounded-md py-3 px-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <div class="min-h-[1rem] text-red-500 text-sm mt-1">
+              <span *ngIf="form.get('email')?.errors?.['emailExists']">Este email já está registado.</span>
+            </div>
+          </div>
+
+          <!-- Password -->
+          <div class="mb-3">
+            <input type="password" placeholder="Password" formControlName="password"
+              class="h-[4em] bg-gray-700 text-white rounded-md py-3 px-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <div class="min-h-[1rem] text-red-500 text-sm mt-1">
+              <div class="min-h-[1rem] text-red-500 text-sm mt-1">
+                <span *ngIf="form.get('password')?.errors?.['weekPassword']">Password need at least 6 caracters.</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Confirm Password -->
+          <div class="mb-8">
+            <input type="password" placeholder="Confirm password" formControlName="password2"
+              class="h-[4em] bg-gray-700 text-white rounded-md py-3 px-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <div class=" text-red-500 text-sm mt-1">
+              <span *ngIf="form.errors?.['passwordsMismatch'] && form.get('password2')?.touched">
+                the passwords don't match
+              </span>
+            </div>
+          </div>
+
+          <button type="submit"
+            class="h-[4em] bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <span class="text-base md:text-xl font-semibold truncate">Create account</span>
+          </button>
+
+          <div class="mt-6 text-center text-gray-400">
+            Already have an account?
+            <a routerLink="/sign-in" class="text-blue-500 hover:underline">Sign in</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
