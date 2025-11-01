@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class AiService {
+    // Envia prompt ao endpoint local e chama onChunk para cada pedaço recebido (streaming SSE-like)
   async askStreaming(prompt: string, onChunk: (chunk: string) => void): Promise<void> {
     const body = {
       model: 'qwen3-1.7b',

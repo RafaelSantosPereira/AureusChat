@@ -47,6 +47,7 @@ export class ChatService {
     timestamp: Date.now(),
   });
 
+  // Se for a primeira mensagem no chat enviada pelo user, usa esse texto como título (truncado)
   if (sender === 'user') {
     const snapshot = await getDocs(messagesCollection);
     if (snapshot.size === 1) {
