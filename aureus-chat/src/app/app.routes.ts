@@ -10,7 +10,7 @@ export const routes: Routes = [
     component: MainLayoutComponent,
     children: [
       { path: 'chat/:id', component: ChatComponent }, // Chat abre dentro do MainLayout
-      { path: '', redirectTo: 'chat/default', pathMatch: 'full' }, // opcional
+      { path: '', redirectTo: 'chat/default', pathMatch: 'full' },
     ]
   },
   {

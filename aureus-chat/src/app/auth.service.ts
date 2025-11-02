@@ -19,12 +19,16 @@ export class AuthService {
   const promise = createUserWithEmailAndPassword(this.firebaseAuth, email, password)
     .then(response => {
       const user = response.user;
-      updateProfile(user, { displayName: username });
-      this.currentUserSig.set({
-        uid: user.uid,
-        email: user.email ?? '',
-        username: username,
-      });
+      // Retornar a promise do updateProfile para esperar sua conclusão
+      return updateProfile(user, { displayName: username })
+        .then(() => {
+          // Só definir o currentUserSig depois do updateProfile completar
+          this.currentUserSig.set({
+            uid: user.uid,
+            email: user.email ?? '',
+            username: username,
+          });
+        });
     });
 
   return from(promise);

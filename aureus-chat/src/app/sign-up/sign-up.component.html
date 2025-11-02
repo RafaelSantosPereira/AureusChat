@@ -18,14 +18,15 @@
         </h2>
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
           
-
-          
-
           <!-- Name -->
           <div class="mb-3">
             <input type="text" placeholder="Name" formControlName="username"
               class="h-[4em] bg-gray-700 text-white rounded-md py-3 px-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-500">
-            <div class="min-h-[1rem] text-red-500 text-sm mt-1"></div>
+            <div class="min-h-[1rem] text-red-500 text-sm mt-1">
+              <span *ngIf="form.get('username')?.errors?.['required'] && form.get('username')?.touched">
+                Name is required.
+              </span>
+            </div>
           </div>
 
           <!-- Email -->
@@ -33,7 +34,15 @@
             <input type="email" placeholder="Email" formControlName="email"
               class="h-[4em] bg-gray-700 text-white rounded-md py-3 px-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-500">
             <div class="min-h-[1rem] text-red-500 text-sm mt-1">
-              <span *ngIf="form.get('email')?.errors?.['emailExists']">Este email já está registado.</span>
+              <span *ngIf="form.get('email')?.errors?.['required'] && form.get('email')?.touched">
+                Email is required.
+              </span>
+              <span *ngIf="form.get('email')?.errors?.['email'] && form.get('email')?.touched && !form.get('email')?.errors?.['required']">
+                Please enter a valid email address.
+              </span>
+              <span *ngIf="form.get('email')?.errors?.['emailExists']">
+                This email is already registered.
+              </span>
             </div>
           </div>
 
@@ -42,9 +51,12 @@
             <input type="password" placeholder="Password" formControlName="password"
               class="h-[4em] bg-gray-700 text-white rounded-md py-3 px-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-500">
             <div class="min-h-[1rem] text-red-500 text-sm mt-1">
-              <div class="min-h-[1rem] text-red-500 text-sm mt-1">
-                <span *ngIf="form.get('password')?.errors?.['weekPassword']">Password need at least 6 caracters.</span>
-              </div>
+              <span *ngIf="form.get('password')?.errors?.['required'] && form.get('password')?.touched">
+                Password is required.
+              </span>
+              <span *ngIf="form.get('password')?.errors?.['weekPassword']">
+                Password needs at least 6 characters.
+              </span>
             </div>
           </div>
 
@@ -52,9 +64,12 @@
           <div class="mb-8">
             <input type="password" placeholder="Confirm password" formControlName="password2"
               class="h-[4em] bg-gray-700 text-white rounded-md py-3 px-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-500">
-            <div class=" text-red-500 text-sm mt-1">
-              <span *ngIf="form.errors?.['passwordsMismatch'] && form.get('password2')?.touched">
-                the passwords don't match
+            <div class="min-h-[1rem] text-red-500 text-sm mt-1">
+              <span *ngIf="form.get('password2')?.errors?.['required'] && form.get('password2')?.touched">
+                Please confirm your password.
+              </span>
+              <span *ngIf="form.errors?.['passwordsMismatch'] && form.get('password2')?.touched && !form.get('password2')?.errors?.['required']">
+                The passwords don't match.
               </span>
             </div>
           </div>
